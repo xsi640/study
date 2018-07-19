@@ -1,6 +1,6 @@
 buildscript {
 	ext {
-		kotlinVersion = '1.2.41'
+		kotlinVersion = '1.2.50'
 	}
 	repositories {
 		mavenCentral()
@@ -35,8 +35,15 @@ repositories {
 	jcenter()
 }
 
+kotlin {
+	experimental {
+		coroutines 'enable'
+	}
+}
 
 dependencies {
 	compile("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 	compile("org.jetbrains.kotlin:kotlin-reflect")
+	compile("org.apache.ignite:ignite-core:2.4.0")
+	compile("org.jetbrains.kotlinx:kotlinx-coroutines-core:0.23.2")
 }
