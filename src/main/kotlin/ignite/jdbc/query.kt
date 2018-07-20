@@ -1,5 +1,6 @@
 package ignite.jdbc
 
+import org.apache.ignite.IgniteJdbcThinDriver
 import java.sql.Connection
 import java.sql.DriverManager
 import java.util.*
@@ -25,10 +26,10 @@ fun main(args: Array<String>) {
     state.setString(2, "suyang")
     state.setInt(3, 30)
     state.setString(4, "Beijing")
-    println("updated:${state.execute()}")
+    println("insert:${state.executeUpdate()}")
     println()
     state = conn.prepareStatement(SELECT)
-    var rs = state.executeQuery()
+    val rs = state.executeQuery()
     while (rs.next()) {
         println("id:${rs.getString("id")}")
         println("name:${rs.getString("name")}")
@@ -38,6 +39,5 @@ fun main(args: Array<String>) {
 }
 
 fun getConn(): Connection {
-    Class.forName("org.apache.ignite.IgniteJdbcThinDriver")
     return DriverManager.getConnection("jdbc:ignite:thin://127.0.0.1:10800")
 }

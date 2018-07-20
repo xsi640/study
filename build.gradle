@@ -46,6 +46,7 @@ dependencies {
 	compile("org.jetbrains.kotlin:kotlin-reflect")
 	compile("org.apache.ignite:ignite-core:2.4.0")
 	compile("org.jetbrains.kotlinx:kotlinx-coroutines-core:0.23.2")
-	compile("io.vertx:vertx-sql-common:3.5.3")
+	compile("io.vertx:vertx-core:3.5.3")
 	compile("io.vertx:vertx-jdbc-client:3.5.3")
+	compile("com.fasterxml.jackson.core:jackson-databind:2.9.6")
 }
