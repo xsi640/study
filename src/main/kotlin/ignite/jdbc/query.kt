@@ -39,5 +39,6 @@ fun main(args: Array<String>) {
 }
 
 fun getConn(): Connection {
+//    Class.forName("vertx.jdbc.CustomDriver")
     return DriverManager.getConnection("jdbc:ignite:thin://127.0.0.1:10800")
 }
