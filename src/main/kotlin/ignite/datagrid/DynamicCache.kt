@@ -24,6 +24,8 @@ fun main(args: Array<String>) {
     tcpDiscoverySpi.ipFinder = finder
     cfg.discoverySpi = tcpDiscoverySpi
 
+    cfg.cacheConfiguration.get(0).sqlFunctionClasses
+
     val ignite = Ignition.start(cfg)
 
     var cacheConfiguration = CacheConfiguration<String, String>()
