@@ -1,4 +1,4 @@
-package grpc.proto
+package io.grpc.examples.helloworld
 
 import io.grpc.ManagedChannel
 import io.grpc.ManagedChannelBuilder

@@ -1,4 +1,4 @@
-package grpc.proto
+package io.grpc.examples.helloworld
 
 import io.grpc.Server
 import io.grpc.ServerBuilder
