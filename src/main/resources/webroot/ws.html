@@ -1,0 +1,37 @@
+<html>
+<head><title>Web Socket Test</title></head>
+<body>
+<script>
+    var socket;
+    if (window.WebSocket) {
+        socket = new WebSocket("ws://localhost:8080/wsapp");
+        socket.onmessage = function(event) {
+            document.getElementById("message").innerHTML += event.data + "<br />"
+        }
+        socket.onopen = function(event) {
+            document.getElementById("message").innerHTML += "web socket opened." + "<br />"
+        };
+        socket.onclose = function(event) {
+            document.getElementById("message").innerHTML += "web socket closed." + "<br />"
+        };
+    } else {
+        alert("Your browser does not support Websockets.");
+    }
+    function send(message) {
+        if (!window.WebSocket) {
+            return;
+        }
+        if (socket.readyState == WebSocket.OPEN) {
+            socket.send(message);
+        } else {
+            alert("The socket is not open.");
+        }
+    }
+</script>
+<form onsubmit="return false;">
+    <input type="text" name="message" value=""/>
+    <input type="button" value="Send" onclick="send(this.form.message.value)"/>
+    <div id="message" style="padding-top: 20px"></div>
+</form>
+</body>
+</html>
