@@ -1,6 +1,6 @@
 buildscript {
     ext {
-        kotlinVersion = '1.2.50'
+        kotlinVersion = '1.2.51'
     }
     repositories {
         mavenCentral()
@@ -8,71 +8,95 @@ buildscript {
     dependencies {
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:${kotlinVersion}")
         classpath("org.jetbrains.kotlin:kotlin-allopen:${kotlinVersion}")
-
-        classpath 'com.google.protobuf:protobuf-gradle-plugin:0.8.3'
     }
 }
 
-apply plugin: 'kotlin'
-apply plugin: 'com.google.protobuf'
+allprojects {
+    apply plugin: 'kotlin'
+    apply plugin: 'idea'
 
-group = 'com.suyang'
-version = '0.0.1-SNAPSHOT'
-sourceCompatibility = 1.8
+    group = 'com.suyang'
+    version = '0.1'
 
-protobuf {
-    protoc {
-        artifact = "com.google.protobuf:protoc:3.5.1-1"
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+
+    ext {
+        commons_io = "2.6"
+        commons_codec = "1.11"
+        commons_lang = "3.7"
     }
-    plugins {
-        grpc {
-            artifact = 'io.grpc:protoc-gen-grpc-java:1.13.1'
+
+    compileKotlin {
+        kotlinOptions {
+            freeCompilerArgs = ["-Xjsr305=strict"]
+            jvmTarget = "1.8"
         }
     }
-    generateProtoTasks {
-        all()*.plugins {
-            grpc {}
-        }
+
+    repositories {
+        mavenCentral()
+        jcenter()
+    }
+
+    dependencies {
+        compile("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+        compile("org.jetbrains.kotlin:kotlin-reflect")
+        compile("org.jetbrains.kotlinx:kotlinx-coroutines-core:0.23.2")
+
+        compile("commons-codec:commons-codec:$commons_codec")
+        compile("commons-io:commons-io:$commons_io")
+        compile("org.apache.commons:commons-lang3:$commons_lang")
     }
 }
-
-compileKotlin {
-    kotlinOptions {
-        freeCompilerArgs = ["-Xjsr305=strict"]
-        jvmTarget = "1.8"
-    }
-}
-compileTestKotlin {
-    kotlinOptions {
-        freeCompilerArgs = ["-Xjsr305=strict"]
-        jvmTarget = "1.8"
-    }
-}
-
-repositories {
-    mavenCentral()
-    jcenter()
-}
-
-kotlin {
-    experimental {
-        coroutines 'enable'
-    }
-}
-
-dependencies {
-    compile("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
-    compile("org.jetbrains.kotlin:kotlin-reflect")
-    compile("org.apache.ignite:ignite-core:2.4.0")
-    compile("org.jetbrains.kotlinx:kotlinx-coroutines-core:0.23.2")
-    compile("io.vertx:vertx-core:3.5.3")
-    compile("io.vertx:vertx-web:3.5.3")
-    compile("io.vertx:vertx-jdbc-client:3.5.3")
-    compile("com.fasterxml.jackson.core:jackson-databind:2.9.6")
-    compile("com.cronutils:cron-utils:7.0.2")
-    compile("io.grpc:grpc-netty:1.13.1")
-    compile("io.grpc:grpc-protobuf:1.13.1")
-    compile("io.grpc:grpc-stub:1.13.1")
-    compile("commons.io:commons.io:2.6")
-    compile("commons-codec:commons-codec:1.11")
-}
+//
+//
+//
+//
+//    apply plugin: 'kotlin'
+//    apply plugin: 'idea'
+//
+//
+//
+//    group = 'com.suyang'
+//    version = '0.0.1-SNAPSHOT'
+//    sourceCompatibility = 1.8
+//
+//    compileKotlin {
+//        kotlinOptions {
+//            freeCompilerArgs = ["-Xjsr305=strict"]
+//            jvmTarget = "1.8"
+//        }
+//    }
+//    compileTestKotlin {
+//        kotlinOptions {
+//            freeCompilerArgs = ["-Xjsr305=strict"]
+//            jvmTarget = "1.8"
+//        }
+//    }
+//
+//    repositories {
+//        mavenCentral()
+//        jcenter()
+//    }
+//
+//    kotlin {
+//        experimental {
+//            coroutines 'enable'
+//        }
+//    }
+//
+//    dependencies {
+//        compile("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+//        compile("org.jetbrains.kotlin:kotlin-reflect")
+//        compile("org.apache.ignite:ignite-core:2.4.0")
+//        compile("org.jetbrains.kotlinx:kotlinx-coroutines-core:0.23.2")
+//        compile("io.vertx:vertx-core:3.5.3")
+//        compile("io.vertx:vertx-web:3.5.3")
+//        compile("io.vertx:vertx-jdbc-client:3.5.3")
+//        compile("com.fasterxml.jackson.core:jackson-databind:2.9.6")
+//        compile("com.cronutils:cron-utils:7.0.2")
+//        compile("commons-io:commons-io:2.6")
+//        compile("commons-codec:commons-codec:1.11")
+//    }
+//}

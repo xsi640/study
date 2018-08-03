@@ -1,0 +1,5 @@
+def ignite_version = '2.6.0'
+
+dependencies {
+    compile("org.apache.ignite:ignite-core:$ignite_version")
+}
