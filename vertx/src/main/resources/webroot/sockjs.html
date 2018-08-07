@@ -1,0 +1,34 @@
+<html>
+<head><title>SocketJS Test</title></head>
+<body>
+<script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
+<script>
+    var sock = new SockJS('http://localhost:8080/sockjs');
+
+    sock.onopen = function() {
+      document.getElementById("message").innerHTML += "socketJS opened." + "<br />"
+    };
+
+    sock.onmessage = function(e) {
+      document.getElementById("message").innerHTML += event.data + "<br />"
+    };
+
+    sock.onclose = function() {
+      document.getElementById("message").innerHTML += "socketJS closed." + "<br />"
+    };
+
+    function send(message) {
+        if (sock.readyState == WebSocket.OPEN) {
+            sock.send(message);
+        } else {
+            alert("The socket is not open.");
+        }
+    }
+</script>
+<form onsubmit="return false;">
+    <input type="text" name="message" value=""/>
+    <input type="button" value="Send" onclick="send(this.form.message.value)"/>
+    <div id="message" style="padding-top: 20px"></div>
+</form>
+</body>
+</html>

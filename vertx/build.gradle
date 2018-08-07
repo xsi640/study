@@ -1,7 +1,9 @@
 def vertx_version = '3.5.3'
+def ignite_version = '2.6.0'
 
 dependencies {
     compile("io.vertx:vertx-core:$vertx_version")
     compile("io.vertx:vertx-web:$vertx_version")
     compile("io.vertx:vertx-jdbc-client:$vertx_version")
+    compile("org.apache.ignite:ignite-core:$ignite_version")
 }
