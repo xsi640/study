@@ -22,6 +22,7 @@ fun main(args: Array<String>) {
         sockJSSocket.handler { buffer ->
             val msg = buffer.getString(0, buffer.length())
             println("receive message from ws-client " + sockJSSocket.writeHandlerID() + ": " + msg)
+
             map.values.forEach { s ->
                 s.write("${s.writeHandlerID()}:$msg")
             }
