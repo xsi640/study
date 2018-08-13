@@ -10,6 +10,7 @@ fun main(args: Array<String>) {
     val vertx = Vertx.vertx()
     vertx.createHttpServer().websocketHandler { ws ->
         if (ws.path() == "/wsapp") {
+
             map.putIfAbsent(ws.textHandlerID(), ws)
 
             ws.handler { buffer ->

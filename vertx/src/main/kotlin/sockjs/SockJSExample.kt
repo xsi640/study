@@ -17,6 +17,7 @@ fun main(args: Array<String>) {
             .setHeartbeatInterval(2000)
     val sockJSHandler = SockJSHandler.create(vertx, options)
     sockJSHandler.socketHandler { sockJSSocket ->
+
         map.putIfAbsent(sockJSSocket.writeHandlerID(), sockJSSocket)
 
         sockJSSocket.handler { buffer ->
