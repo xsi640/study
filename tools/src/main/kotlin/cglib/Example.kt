@@ -4,6 +4,8 @@ import net.sf.cglib.proxy.MethodProxy
 import net.sf.cglib.proxy.MethodInterceptor
 import java.lang.reflect.Method
 import net.sf.cglib.proxy.Enhancer
+import java.lang.reflect.InvocationHandler
+import java.lang.reflect.Proxy
 
 
 open class TargetObject {
@@ -56,3 +58,42 @@ fun main(args: Array<String>) {
     println(targetObject2.method2(100))
     println(targetObject2.method3(200))
 }
+
+interface Test {
+    fun test(i: Int): Int
+}
+
+class DynamicProxyTest private constructor(private val target: Test) : InvocationHandler {
+    override fun invoke(proxy: Any, method: Method, args: Array<out Any>): Any {
+        return method.invoke(target, *args)
+    }
+
+    companion object {
+        fun newProxyInstance(target: Test): Any? {
+            return Proxy
+                    .newProxyInstance(DynamicProxyTest::class.java.classLoader,
+                            arrayOf<Class<*>>(Test::class.java),
+                            DynamicProxyTest(target))
+
+        }
+    }
+}
+
+class CglibProxyTest private constructor() : MethodInterceptor {
+
+    override fun intercept(obj: Any, method: Method, args: Array<Any>,
+                           proxy: MethodProxy): Any {
+        return proxy.invokeSuper(obj, args)
+    }
+
+    companion object {
+        fun <T : Test> newProxyInstance(targetInstanceClazz: Class<T>): Test {
+            val enhancer = Enhancer()
+            enhancer.setSuperclass(targetInstanceClazz)
+            enhancer.setCallback(CglibProxyTest())
+            return enhancer.create() as Test
+        }
+    }
+
+}
+

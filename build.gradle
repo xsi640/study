@@ -28,6 +28,8 @@ allprojects {
         commons_io = "2.6"
         commons_codec = "1.11"
         commons_lang = "3.7"
+        slf4j = "1.7.25"
+        log4j = "2.11.1"
     }
 
     compileKotlin {
@@ -50,5 +52,8 @@ allprojects {
         compile("commons-codec:commons-codec:$commons_codec")
         compile("commons-io:commons-io:$commons_io")
         compile("org.apache.commons:commons-lang3:$commons_lang")
+        compile "org.slf4j:slf4j-api:$slf4j"
+        compile "org.apache.logging.log4j:log4j-slf4j-impl:$log4j"
+        compile "org.apache.logging.log4j:log4j-core:$log4j"
     }
 }
